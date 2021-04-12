@@ -248,6 +248,7 @@ func (c *Client) PostJSON(ctx context.Context, endpoint string, data interface{}
 		req.Header.Set("Content-Type", "application/json")
 		c.addAuth(req)
 		tracer.Start(req)
+		fmt.Println("Client:", req.Method, req.URL.String())
 		return c.client.Do(req)
 	}))
 }
