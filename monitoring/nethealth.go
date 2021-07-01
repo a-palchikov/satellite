@@ -34,7 +34,7 @@ import (
 	"github.com/gravitational/satellite/utils"
 
 	"github.com/gravitational/trace"
-	"github.com/mailgun/holster"
+	"github.com/gravitational/ttlmap/v2"
 	dto "github.com/prometheus/client_model/go"
 	"github.com/prometheus/common/expfmt"
 	log "github.com/sirupsen/logrus"
@@ -443,13 +443,13 @@ type netStats struct {
 	// Mutex locks access to TTLMap.
 	sync.Mutex
 	// TTLMap maps a peer to its peerData.
-	*holster.TTLMap
+	*ttlmap.TTLMap
 }
 
 // newNetStats constructs a new netStats.
 func newNetStats(mapCapacity int, packetLossCapacity int) *netStats {
 	return &netStats{
-		TTLMap:             holster.NewTTLMap(mapCapacity),
+		TTLMap:             ttlmap.NewTTLMap(mapCapacity),
 		packetLossCapacity: packetLossCapacity,
 	}
 }
